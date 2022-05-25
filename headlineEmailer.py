@@ -72,4 +72,18 @@ msg['To'] = TO
 msg.attach(MIMEText(content, 'html'))
 # fp.close()
 
+print('Initiating Server...')
+
+server = smtplib.SMTP(SERVER, PORT)
+# sever=smtplib.SMTP SSL('smtp.gmail.com', 465)
+server.set_debuglevel(1)
+server.ehlo()
+server.starttls()
+#server.ehlo
+server.login(FROM, PASS)
+server.sendmail(FROM, TO, msg.as_string())
+
+print('Email Sent...')
+
+server.quit()
 
