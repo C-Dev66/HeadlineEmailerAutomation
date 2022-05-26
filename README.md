@@ -23,7 +23,7 @@ This python script will work as a webscrapper for fetching the top 30 stories of
 
 We will create a function to extract the page links (title/components) from the passed url. BeautifulSoup will group the content with it's find_all capability. Structure will then be added to the soup to view as a list.
 
-Once the content is extracted we will compose the email by signing into the smtp server with the credentials. Structure the subject line. Initiate connection and quit the server.
+Once the content is extracted we will compose the email by signing into the smtp server with credentials. Structure the subject line. Initiate connection and quit the server.
 
 Debbging can be viewed by setting the communication 'server.set_debuglevel(0-3)'
 
@@ -106,26 +106,15 @@ server.quit()
 ---
 
 ## Summary
+Scripting is a powerful tool when used for automating mundane tasks. A webscrapper can be useful when wanting to pull information from a static webpage where html tags will not alter all that much. Providing these attributes to BeautifulSoup will build a collection of content(soup) where one can choose to filter and display/export. An excel sheet can also be used as a source to pull information from.
 
-Fun project to introduce flutter into my workflow. Building the chat feature will prove useful when implementing into another future project. Looking forward to the next lab.
+Scripting is a must have tool in one's asernal. Looking forward to seeing what else I can automate :). 
 
-An extra step would be using Google's Flutterfire for backend intergration
+Useful Documentation:
 
-We covered:
-
-- How to build a Flutter app from the ground up
-- How to use some of the shortcuts provided in Android Studio and IntelliJ
-- How to run, hot reload, and debug your Flutter app on an emulator, a simulator, and a device
-- How to customize your user interface with widgets and animations
-- How to customize your user interface for Android and iOS
-
-
-For more information refer to the official documentation.
-
-- [Firebase Documentation](https://firebase.google.com/docs)
-- [Flutterfire](https://firebase.google.com/docs/flutter/setup?platform=ios)
-- [Flutter Documentation](https://docs.flutter.dev/)
-- [Google's Flutter Youtube channel, Lots of great content here](https://www.youtube.com/channel/UCwXdFgeE9KYzlDdR7TG9cMw)
+- [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/#)
+- [SMTPLIB](https://docs.python.org/3/library/smtplib.html#smtp-objects)
+- [Microsoft Scripting](https://docs.microsoft.com/en-us/windows/python/scripting)
 
 ---
 
