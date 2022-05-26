@@ -19,133 +19,87 @@
 
 ## Description
 
-Application is built with Google's Flutter written in dart lang.
+This python script will work as a webscrapper for fetching the top 30 stories of HackerNews. Composing and sending an automated email to the recipients from an authenticated account.
 
-We will be doing the following:
+We will create a function to extract the page links (title/components) from the passed url. BeautifulSoup will group the content with it's find_all capability. Structure will then be added to the soup to view as a list.
 
-- Building the main user interface 
-- Adding a UI for composing & displaying messages
-- Animating the final application
+Once the content is extracted we will compose the email by signing into the smtp server with the credentials. Structure the subject line. Initiate connection and quit the server.
+
+Debbging can be viewed by setting the communication 'server.set_debuglevel(0-3)'
+
+
+
+Depencies we will be using
+
+- BeautifulSoup
+- smtplib 
+- requests & datetime
 
 
 ---
 
 ## Code Snippets
 
-> Building the main user interface
-```dart
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+> Creating the function that will extract news & build soup
+```python
+def extract_news(url):
+    print('Extracting Hacker News Stories...')
+    cnt = ''
+    cnt += ('<b>HN Top Stories:</b>\n'+'<br>'+'-'*50+'<br>')
+    responce = requests.get(url)
+    content = responce.content
+    soup = BeautifulSoup(content, 'html.parser')
+    for i,tag in enumerate(soup.find_all('td',attrs={'class':'title','valign':''})):
+        cnt += ((str(i+1)+' :: '+tag.text + "\n" + '<br>') if tag.text!='More' else '')
+        #print(tag.prettify) #find_all('span',attrs={'class':'sitestr'})
+    return(cnt)
 
-  @override
-  void dispose() {
-    for (var message in _messages) {
-      message.animationController.dispose();
-    }
-    super.dispose();
-  }
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: const Text('FriendlyChat')),
-        body: Container(
-          child: Column(
-            children: [
-              Flexible(
-                  child: ListView.builder(
-                padding: const EdgeInsets.all(8.0),
-                reverse: true,
-                itemBuilder: (_, index) => _messages[index],
-                itemCount: _messages.length,
-              )),
-              const Divider(height: 1.0),
-              Container(
-                decoration: BoxDecoration(color: Theme.of(context).cardColor),
-                child: _buildTextComposer(),
-              )
-            ],
-          ),
-          decoration: Theme.of(context).platform == TargetPlatform.iOS
-            ? BoxDecoration(
-              border: Border(
-                top: BorderSide(color: Colors.grey[200]!),
-              )
-            )
-            : null,
-        ));
-  }
+cnt = extract_news('https://news.ycombinator.com/')
+content += cnt
+content += ('<br>-------<br>')
+content +=('<br><br>End Of Message')
 ```
 
-> Adding UI for composing & displaying messages
-```dart
- Widget _buildTextComposer() {
-    return IconTheme(
-      data: IconThemeData(color: Theme.of(context).colorScheme.secondary),
-      child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Row(children: [
-            Flexible(
-                child: TextField(
-              controller: _textController,
-              onChanged: (text) {
-                setState(() {
-                  _isComposing = text.isNotEmpty;
-                });
-              }, 
-              onSubmitted: _isComposing ? _handleSubmitted: null,
-              decoration:
-                  const InputDecoration.collapsed(hintText: 'Send a message'),
-              focusNode: _focusNode,
-            )),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: Theme.of(context).platform == TargetPlatform.iOS ? 
-              CupertinoButton(
-                child: const Text('Send'),
-                onPressed: _isComposing
-                  ? () => _handleSubmitted(_textController.text)
-                  : null,) :
-              IconButton(
-                  icon: const Icon(Icons.send),
-                  onPressed: _isComposing
-                      ? () => _handleSubmitted(_textController.text)
-                      : null,
-            ))
-          ])),
-    );
-  }
+> Composing the email & setting up smtp server
+```python
+print('Comosing Email...')
 
+SERVER = 'smtp.gmail.com' # "Your smtp SERVER"
+PORT = 587 # your port number
+FROM = '' # your from email id **Be Careful pusing this to repo**
+TO = '' # your to email id  **Becareful pushing this to repo**
+PASS = '' # your email id's password **Becareful pushing this to repo**
+
+# fp = open(file_name, 'rb')
+# Create a text/plain message
+# msg = MIMEText('')
+msg = MIMEMultipart()
+
+# msg.add_header('Content-Disposition', 'attachment', filename='empty.txt')
+msg['Subject'] = 'Top News Stories HN [Automated Email]' + ' ' + str(now.day) + '-' + str(now.month) + '-' + str(now.year)
+msg['From'] = FROM
+msg['To'] = TO
+
+msg.attach(MIMEText(content, 'html'))
+# fp.close()
 ```
 
-> Animating the application & applying theme
+> Connecting to client & loggin in
 ```dart
-class ChatMessage extends StatelessWidget {
-  const ChatMessage(
-      {required this.text, required this.animationController, Key? key})
-      : super(key: key);
+print('Initiating Server...')
 
-//
+server = smtplib.SMTP(SERVER, PORT)
+# sever=smtplib.SMTP SSL('smtp.gmail.com', 465)
+server.set_debuglevel(1)
+server.ehlo()
+server.starttls()
+#server.ehlo
+server.login(FROM, PASS)
+server.sendmail(FROM, TO, msg.as_string())
 
-  @override
-  Widget build(BuildContext context) {
-    return SizeTransition(
-      sizeFactor:
-          CurvedAnimation(parent: animationController, curve: Curves.easeOut),
-      axisAlignment: 0.0,
-//
+print('Email Sent...')
 
-final ThemeData kIOSTheme = ThemeData(
-  primarySwatch: Colors.red,
-  primaryColor: Colors.grey[200],
-);
-
-final ThemeData kDefaultTheme = ThemeData(
-  colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red)
-      .copyWith(secondary: Colors.redAccent[400]),
-);
-
-
+server.quit()
 ```
 
 
