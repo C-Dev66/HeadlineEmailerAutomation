@@ -1,10 +1,8 @@
+
+<img src="https://www.python.org/static/community_logos/python-logo-generic.svg" alt="HomePage"/>
+
 # HeadlineEmailerAutomation
-
-<img src="https://github.com/C-Dev66/friendly_chat/blob/main/screenshots/Preview.png" alt="HomePage"/>
-
-# friendly_chat
-> This multi-platform application(Andoird, iOS, Web) creates a chat instance where the user can send messages into a cache. Updating the page in real time with swift animations provided by flutter depencies. Theming is applied to both iOS & Android.
-
+> Scripting with Python!
 ---
 
 ### Table of Contents:
@@ -178,6 +176,6 @@ For more information refer to the official documentation.
 ---
 
 ## Demo
-![HomePage Gif](https://github.com/C-Dev66/friendly_chat/blob/main/screenshots/FriendlyChatDemo.gif)
+![HomePage Gif](https://github.com/C-Dev66/HeadlineEmailerAutomation/blob/main/screenshots/headlineEmailer.png)
 
 
