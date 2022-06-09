@@ -2,7 +2,7 @@
 <img src="https://www.python.org/static/community_logos/python-logo-generic.svg" alt="HomePage"/>
 
 # HeadlineEmailerAutomation
-> Scripting with Python!
+> Scripting with Python! A powerful tool for everyone!
 ---
 
 ### Table of Contents:
