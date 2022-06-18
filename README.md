@@ -108,7 +108,7 @@ server.quit()
 ## Summary
 Scripting is a powerful tool when used for automating mundane tasks. A webscrapper can be useful when wanting to pull information from a static webpage where html tags will not alter all that much. Providing these attributes to BeautifulSoup will build a collection of content(soup) where one can choose to filter and display/export. An excel sheet can also be used as a source to pull information from.
 
-Scripting is a must have tool in one's asernal. Looking forward to seeing what else I can automate 🦁. 
+Scripting is a must have tool in one's asernal. Looking forward to seeing what else I can automate. 
 
 Useful Documentation:
 
